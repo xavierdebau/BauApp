@@ -58,7 +58,7 @@
         color: black
     }
     form button:hover {
-        background: navy;
+        background: rgb(43, 43, 202);
         color: white
     }
     .error { color: coral;}
