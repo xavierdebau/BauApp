@@ -1,13 +1,31 @@
 <script>
-    let user_name = "";
+    import {authHandlers} from "../store/store"
+
+    let email = "";
     let password = "";
     let error = false;
+    let register = false;
+    let authenticating = false;
 
-    function handleAuth(){
-        if (!user_name || !password){
-            error = true;
+    async function handleAuth(){
+        if (authenticating) {
             return;
         }
+       
+        if (!email || !password || (register && confirmPassword)){
+            error = true;
+            return;
+        } 
+        authenticating = true;
+        try {
+            if (!register){
+                await authHandlers.login(email, password);
+            }
+        } catch (error) {
+            console.log('error en autenticacion',error);
+            error = true;
+        }
+
     }
 
 </script>
@@ -21,12 +39,12 @@
             <p class="error">Credenciales ingresadas son incorrectas</p>
         {/if}
         <label>
-             <input bind:value={user_name} type="user_name" placeholder="nombre"/> 
+             <input bind:value={email} type="email" placeholder="email"/> 
         </label>
         <label>
             <input bind:value={password} type="password" placeholder="contraseña"/>
         </label>
-        <button type="submit" >ingresar</button>
+        <button on:click={handleAuth} type="button" >ingresar</button>
     </form>
 </div>   
 
