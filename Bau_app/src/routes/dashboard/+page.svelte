@@ -1,12 +1,14 @@
 
 <script>
-    let datalist = ['hola soy un dato de prueba'];
+    import {authHandlers} from "../../store/store";
+    let datalist = [];
+
 </script>
 
 <div class="mainContainer">
     <div class="headerContainer">
         <h1>Ingresaste de forma correcta</h1>
-        
+        <button on:click={authHandlers.logout} >Logout</button>
     </div>
     <main>
         {#each datalist as data,index }
