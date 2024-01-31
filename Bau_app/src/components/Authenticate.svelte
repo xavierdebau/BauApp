@@ -6,6 +6,8 @@
     let error = false;
     let register = false;
     let authenticating = false;
+    let reset = false;
+    
 
     async function handleAuth(){
         if (authenticating) {
@@ -27,6 +29,17 @@
         }
 
     }
+    async function handlePasswordReset() {
+        try {
+            await authHandlers.resetPassword(email); // Assuming email is bound to the input field
+            // Provide feedback to the user indicating that the reset email has been sent
+            console.log('Password reset email sent successfully.');
+            reset = true;
+        } catch (error) {
+            // Handle errors, such as displaying an error message to the user
+            console.error('Error sending password reset email:', error.message);
+        }
+    }
 
 </script>
 
@@ -37,6 +50,10 @@
         <h1>Login</h1>
         {#if error}
             <p class="error">Credenciales ingresadas son incorrectas</p>
+            <button on:click={handlePasswordReset} type="button">Forgot Password?</button>
+            {#if reset}
+                <p>se envio un mail con un link para reestablecer su contraseña</p>
+            {/if}
         {/if}
         <label>
              <input bind:value={email} type="email" placeholder="email"/> 
