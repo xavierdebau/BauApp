@@ -1,11 +1,11 @@
 <script>
-    import { authHandlers } from "../store/store";
+    import { authHandlers,authStore } from "../store/store";
     import { onMount } from 'svelte';
 
     let email = "";
     let password = "";
     let confirmPassword = "";
-    let userType = ""; // Variable to store selected user type
+    let userType = "";
     let error = false;
     let authenticating = false;
 
@@ -17,12 +17,12 @@
         }
         
         if (!email || !password || !confirmPassword || !userType) {
-            error = true;
+            error = "Please fill in all fields.";
             return;
         }
 
         if (password !== confirmPassword) {
-            error = true;
+            error = "Passwords do not match.";
             return;
         }
 
@@ -30,18 +30,26 @@
         
         try {
             await authHandlers.signup(email, password, userType);
+            // If signup is successful, clear the form and error state
+            email = "";
+            password = "";
+            confirmPassword = "";
+            userType = "";
+            error = false;
         } catch (error) {
             console.error('Error in user signup:', error);
-            error = true;
+            error = "Error creating user. Please try again later.";
+        } finally {
+            authenticating = false;
         }
     }
 </script>
 
 <div class="AuthContainer">
     <form>
-        <h1>Register</h1>
+        <h1>Registrar nuevo usuario</h1>
         {#if error}
-            <p class="error">Incorrect credentials provided.</p>
+            <p class="error">{error}</p>
         {/if}
         <label>
             <input bind:value={email} type="email" placeholder="Email"/> 

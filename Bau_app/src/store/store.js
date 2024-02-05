@@ -1,22 +1,51 @@
-import {writable} from 'svelte/store';
+import { writable } from 'svelte/store';
 import { auth } from '../lib/firebase/firebase';
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
 
 export const authStore = writable({
     user: null,
-    loadings: true,
+    loading: true,
     data: {}
-})
+});
 
 export const authHandlers = {
-    signup: async (email, password) => {
-        await createUserWithEmailAndPassword(auth, email, password)
+    signup: async (email, password, userType) => {
+        try {
+            const credential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = credential.user;
+
+            // Update authStore to include user type in the data object
+            authStore.update(store => {
+                return {
+                    ...store,
+                    data: {
+                        ...store.data,
+                        userType: userType
+                    }
+                };
+            });
+    
+            return user;
+        } catch (error) {
+            console.error('Error signing up:', error.message);
+            throw error;
+        }
     },
-    login: async (email,password) => {
-        await signInWithEmailAndPassword(auth, email, password)
+    login: async (email, password) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            console.error('Error logging in:', error.message);
+            throw error;
+        }
     },
     logout: async () => {
-       await signOut(auth)
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error('Error logging out:', error.message);
+            throw error;
+        }
     },
     resetPassword: async (email) => {
         try {
@@ -28,5 +57,4 @@ export const authHandlers = {
             throw error;
         }
     }
-
-}
+};
