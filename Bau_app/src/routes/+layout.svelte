@@ -1,69 +1,67 @@
 <script>
-    import {onMount} from 'svelte';
-    import {auth, db} from '../lib/firebase/firebase';
-    import {getDoc, doc, setDoc} from 'firebase/firestore';
-    import {authStore} from '../store/store';
+	import '../app.pcss';
+	import { onMount } from 'svelte';
+	import { auth, db } from '../lib/firebase/firebase';
+	import { getDoc, doc, setDoc } from 'firebase/firestore';
+	import { authStore } from '../store/store';
 
-    const nonAuthRoutes = ['/'];
+	const nonAuthRoutes = ['/'];
 
-    onMount(() => {
-        console.log("Mounting")
-        const unsuscribe = auth.onAuthStateChanged(async user => {
-            const currentPath = window.location.pathname;
+	onMount(() => {
+		console.log('Mounting');
+		const unsuscribe = auth.onAuthStateChanged(async (user) => {
+			const currentPath = window.location.pathname;
 
-            if (!user && !nonAuthRoutes.includes(currentPath)) {
-                window.location.href = "/";
-                return;
-            }
-            if (user && currentPath === "/") {
-                window.location.href = "/dashboard";
-                return;
-            }
-            if (!user) {
-                return;
-            }
+			if (!user && !nonAuthRoutes.includes(currentPath)) {
+				window.location.href = '/';
+				return;
+			}
+			if (user && currentPath === '/') {
+				window.location.href = '/dashboard';
+				return;
+			}
+			if (!user) {
+				return;
+			}
 
-            let dataToSetToStore;
-            const docRef = doc(db, 'users', user.uid);
-            const docSnap = await getDoc(docRef);
-            if (!docSnap.exists()) {
-                const userRef = doc(db, 'users', user.uid);
-                dataToSetToStore = {
-                    email: user.email,
-                    datalist: [],
-                };
-                await setDoc(userRef,dataToSetToStore,{merge: true});
-           
-            }else{
-                const userData = docSnap.data();
-                dataToSetToStore = userData;
-            }
+			let dataToSetToStore;
+			const docRef = doc(db, 'users', user.uid);
+			const docSnap = await getDoc(docRef);
+			if (!docSnap.exists()) {
+				const userRef = doc(db, 'users', user.uid);
+				dataToSetToStore = {
+					email: user.email,
+					datalist: []
+				};
+				await setDoc(userRef, dataToSetToStore, { merge: true });
+			} else {
+				const userData = docSnap.data();
+				dataToSetToStore = userData;
+			}
 
-            authStore.update((curr) => {
-                return {
-                    ...curr,
-                    user,
-                    data: dataToSetToStore,
-                    loading: false,
-                };
-            });
-            
-
-        });
-    });
+			authStore.update((curr) => {
+				return {
+					...curr,
+					user,
+					data: dataToSetToStore,
+					loading: false
+				};
+			});
+		});
+	});
 </script>
 
 <dib class="mainContainer">
-    <slot/>
+	<slot />
 </dib>
 
 <style>
-    .mainContainer {
-        min-height: 100vh;
-        background: linear-gradient(to bottom,#000428,#0a7386);
-        color: white;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-    }
+	.mainContainer {
+		min-height: 100vh;
+		background: linear-gradient(to bottom, #000428, #0a7386);
+		color: white;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
 </style>

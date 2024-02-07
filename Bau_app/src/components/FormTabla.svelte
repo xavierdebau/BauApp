@@ -155,6 +155,7 @@
   .formulario button:hover {
     background-color: #0056b3;
   }
+  
 </style>
 
 <!-- Formulario de Creación -->
@@ -162,23 +163,23 @@
   <h2>Crear Nuevo Activo</h2>
   <form on:submit|preventDefault={handleSubmit}>
       <div class="campo">
-          <label>ID Cliente:</label>
-          <input type="text" bind:value={id_cliente} />
+          <label for="id_cliente">ID Cliente:</label>
+          <input type="text" id="id_cliente" bind:value={id_cliente} />
       </div>
 
       <div class="campo">
-          <label>Nombre:</label>
-          <input type="text" bind:value={nombre} />
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" bind:value={nombre} />
       </div>
 
       <div class="campo">
-          <label>Dirección:</label>
-          <input type="text" bind:value={direccion} />
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" bind:value={direccion} />
       </div>
 
       <div class="campo">
-          <label>Tipo de Obra:</label>
-          <select bind:value={tipo_obra}>
+          <label for="tipo_obra">Tipo de Obra:</label>
+          <select id="tipo_obra" bind:value={tipo_obra}>
               <option value="">Seleccionar tipo de obra</option>
               {#each tiposDeObra as tipo}
                   <option value={tipo}>{tipo}</option>
@@ -187,8 +188,8 @@
       </div>
 
       <div class="campo">
-          <label>Componente:</label>
-          <select bind:value={componente}>
+          <label for="componente">Componente:</label>
+          <select id="componente" bind:value={componente}>
             <option value="">Componente</option>
             {#each componentes as component}
                 <option value={component}>{component}</option>
@@ -197,8 +198,8 @@
       </div>
 
       <div class="campo">
-          <label>Nivel:</label>
-          <select bind:value={nivel}>
+          <label for="nivel">Nivel:</label>
+          <select id="nivel" bind:value={nivel}>
               <option value="">Seleccionar nivel</option>
               {#each niveles as nivel_opcion}
                   <option value={nivel_opcion}>{nivel_opcion}</option>
@@ -207,13 +208,13 @@
       </div>
 
       <div class="campo">
-          <label>Comentarios:</label>
-          <textarea bind:value={comentarios}></textarea>
+          <label for="comentarios">Comentarios:</label>
+          <textarea id="comentarios" bind:value={comentarios}></textarea>
       </div>
 
       <div class="campo">
-          <label>Activo:</label>
-          <select bind:value={activo}>
+          <label for="activo">Activo:</label>
+          <select id="activo" bind:value={activo}>
             <option value="">Idicación de Cumplimientos</option>
             {#each estadoDeActivo as estado}
                 <option value={estado}>{estado}</option>
@@ -225,19 +226,34 @@
   </form>
 </div>
 <!-- Lista de Activos -->
-<div style="display: flex; flex-wrap: wrap;">
+<div>
   <h2>Activos</h2>
-  {#each $activosAnteriores as activo}
-    <div style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 10px; flex: 1 1 calc(33% - 20px);">
-      <p>ID Cliente: {activo.id_cliente}</p>
-      <p>Nombre: {activo.nombre}</p>
-      <p>Dirección: {activo.direccion}</p>
-      <p>Tipo de Obra: {activo.tipo_obra}</p>
-      <p>Componente: {activo.componente}</p>
-      <p>Nivel: {activo.nivel}</p>
-      <p>Comentarios: {activo.comentarios}</p>
-      <p>Activo: {activo.activo}</p>
-    </div>
-  {/each}
+  <table>
+    <thead>
+      <tr>
+        <th>ID Cliente</th>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Tipo de Obra</th>
+        <th>Componente</th>
+        <th>Nivel</th>
+        <th>Comentarios</th>
+        <th>Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each $activosAnteriores as activo}
+        <tr>
+          <td>{activo.id_cliente}</td>
+          <td>{activo.nombre}</td>
+          <td>{activo.direccion}</td>
+          <td>{activo.tipo_obra}</td>
+          <td>{activo.componente}</td>
+          <td>{activo.nivel}</td>
+          <td>{activo.comentarios}</td>
+          <td>{activo.activo}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
 </div>
-

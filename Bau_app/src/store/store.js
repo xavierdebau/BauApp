@@ -1,6 +1,13 @@
 import { writable } from 'svelte/store';
-import { auth } from '../lib/firebase/firebase';
+import { auth,db } from '../lib/firebase/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
+
+// Define la función updateUserData para actualizar los datos del usuario en Firestore
+async function updateUserData(uid, userData) {
+    const userDocRef = doc(db, 'users', uid); // Suponiendo que 'users' es la colección donde se almacenan los datos de usuario
+    await setDoc(userDocRef, userData, { merge: true });
+};
 
 export const authStore = writable({
     user: null,
@@ -15,15 +22,7 @@ export const authHandlers = {
             const user = credential.user;
 
             // Update authStore to include user type in the data object
-            authStore.update(store => {
-                return {
-                    ...store,
-                    data: {
-                        ...store.data,
-                        userType: userType
-                    }
-                };
-            });
+            await updateUserData(user.uid, {email: email, userType: userType });
     
             return user;
         } catch (error) {

@@ -1,47 +1,51 @@
 <script>
-    import { authHandlers,authStore } from "../store/store";
+    import { authHandlers } from "../store/store";
     import { onMount } from 'svelte';
 
     let email = "";
     let password = "";
     let confirmPassword = "";
     let userType = "";
-    let error = false;
-    let authenticating = false;
+    let error = "";
 
     const userTypes = ["admin", "technician", "regular"]; // Available user types
 
     async function handleSignup() {
-        if (authenticating) {
-            return;
+        if (!validateForm()) return;
+
+        try {
+            await authHandlers.signup(email, password, userType);
+            clearForm();
+        } catch (error) {
+            console.error('Error in user signup:', error);
+            setError("Error creating user. Please try again later.");
         }
-        
+    }
+
+    function validateForm() {
         if (!email || !password || !confirmPassword || !userType) {
-            error = "Please fill in all fields.";
-            return;
+            setError("Please fill in all fields.");
+            return false;
         }
 
         if (password !== confirmPassword) {
-            error = "Passwords do not match.";
-            return;
+            setError("Passwords do not match.");
+            return false;
         }
 
-        authenticating = true;
-        
-        try {
-            await authHandlers.signup(email, password, userType);
-            // If signup is successful, clear the form and error state
-            email = "";
-            password = "";
-            confirmPassword = "";
-            userType = "";
-            error = false;
-        } catch (error) {
-            console.error('Error in user signup:', error);
-            error = "Error creating user. Please try again later.";
-        } finally {
-            authenticating = false;
-        }
+        return true;
+    }
+
+    function clearForm() {
+        email = "";
+        password = "";
+        confirmPassword = "";
+        userType = "";
+        setError("");
+    }
+
+    function setError(message) {
+        error = message;
     }
 </script>
 
