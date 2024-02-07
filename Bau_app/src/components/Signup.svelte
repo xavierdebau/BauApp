@@ -48,7 +48,12 @@
         error = message;
     }
 </script>
-
+<style>
+    .AuthContainer input,
+    .AuthContainer select {
+        color: black;
+    }
+</style>
 <div class="AuthContainer">
     <form>
         <h1>Registrar nuevo usuario</h1>

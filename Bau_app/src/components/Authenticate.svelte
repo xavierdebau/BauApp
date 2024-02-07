@@ -44,6 +44,50 @@
 </script>
 
 
+<style>
+    .AuthContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;  
+    }
+
+    .AuthContainer input{
+        color: black;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 400px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    form input {
+        width: 100%;
+    }
+
+    form input:focus {
+        border: none;
+        outline: 1px solid #013200;
+    }
+
+    form button {
+        background: whitesmoke;
+        color: black;
+    }
+
+    form button:hover {
+        background: rgb(43, 43, 202);
+        color: white;
+    }
+
+    .error {
+        color: coral;
+    }
+</style>
 
 <div class="AuthContainer">
     <form>
@@ -56,45 +100,11 @@
             {/if}
         {/if}
         <label>
-             <input bind:value={email} type="email" placeholder="email"/> 
+            <input bind:value={email} type="email" placeholder="email"/> 
         </label>
         <label>
             <input bind:value={password} type="password" placeholder="contraseña"/>
         </label>
         <button on:click={handleAuth} type="button" >ingresar</button>
     </form>
-</div>   
-
-<style>
-    .AuthContainer{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        
-    }
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        width: 400px;
-        max-width: 100%;
-        margin: 0 auto;
-    }
-    form input{
-        width: 100%;
-    }
-    form input:focus {
-        border: none;
-        outline: 1px solid #013200
-    }
-    form button{
-        background: whitesmoke;
-        color: black
-    }
-    form button:hover {
-        background: rgb(43, 43, 202);
-        color: white
-    }
-    .error { color: coral;}
-</style>
+</div>
