@@ -2,8 +2,6 @@
 <script>
     import {authHandlers} from "../../store/store";
     import Signup from "../../components/Signup.svelte";
-	import FormTabla from "../../components/FormTabla.svelte";
-    import TablaID from "../../components/TablaID.svelte";
     import TablaGeneral from "../../components/TablaGeneral.svelte"
     import { TabGroup, Tab, TabAnchor } from '@skeletonlabs/skeleton';
 	import TablaId from "../../components/TablaID.svelte";
@@ -25,21 +23,29 @@
         <TabGroup bind:tabSet={activeTab}>
             <!-- Componente Tab para la pestaña Signup -->
             <Tab bind:group={activeTab} name="signup" value={0}>
-            <svelte:fragment slot="lead">(icon)</svelte:fragment>
-            <span>Signup</span>
+                <svelte:fragment slot="lead">(icon)</svelte:fragment>
+                <span>Signup</span>
             </Tab>
             <!-- Componente Tab para la pestaña FormTabla -->
             <Tab bind:group={activeTab} name="TablaID" value={1}>
-            <svelte:fragment slot="lead">(icon)</svelte:fragment>
-            <span>ID</span>
+                <svelte:fragment slot="lead">(icon)</svelte:fragment>
+                <span>ID</span>
             </Tab>
+            <!-- Componente Tab para la pestaña FormTabla -->
+            <Tab bind:group={activeTab} name="TablaGeneral" value={2}>
+                <svelte:fragment slot="lead">(icon)</svelte:fragment>
+                <span>General</span>
+            </Tab>
+
             <!-- Contenido de las pestañas -->
             <svelte:fragment slot="panel">
-            {#if activeTab === 0}
+                {#if activeTab === 0}
                 <Signup/> <!-- Componente Signup -->
-            {:else if activeTab === 1}
-                <TablaId/> <!-- Componente FormTabla -->
-            {/if}
+                {:else if activeTab === 1}
+                <TablaId/> <!-- Componente TablaID -->
+                {:else if activeTab === 2}
+                <TablaGeneral/> <!-- Componente TablaGeneral -->
+                {/if}
             </svelte:fragment>
         </TabGroup>
     </main>
