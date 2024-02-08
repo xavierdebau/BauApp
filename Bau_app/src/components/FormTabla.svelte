@@ -3,7 +3,7 @@
   import type { TableSource } from '@skeletonlabs/skeleton';
   import { writable } from 'svelte/store';
   import { auth, activosCollection } from '../lib/firebase/firebase';
-  import { addDoc,onSnapshot, collection } from 'firebase/firestore';
+  import { addDoc,onSnapshot} from 'firebase/firestore';
   
 
 
@@ -162,10 +162,10 @@
 </style>
 <!-- Formulario de Creación -->
 <div class="formulario bg-c16029 rounded-lg shadow-lg">
-  <h2 class="text-2xl font-semibold mb-4">Crear Nuevo Activo</h2>
+  <h2 class="text-2xl font-semibold mb-4">ID</h2>
   <form class="flex flex-wrap" on:submit|preventDefault={handleSubmit}>
     <div class="w-full md:w-1/2 px-3 mb-6">
-        <label for="id_cliente" class="block text-sm font-medium text-gray-700">ID Cliente:</label>
+        <label for="id_cliente" class="block text-sm font-medium text-gray-100">ID Cliente:</label>
         <input type="text" id="id_cliente" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={id_cliente} />
     </div>
 

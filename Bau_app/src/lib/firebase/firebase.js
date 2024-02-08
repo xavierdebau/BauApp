@@ -22,3 +22,5 @@ let firebaseApp; if (!getApps().length) {     firebaseApp = initializeApp(fireba
 export const db = getFirestore(firebaseApp)
 export const auth = getAuth(firebaseApp)
 export const activosCollection = collection(db, 'activosAnteriores');
+export const tablaID = collection(db, 'tablaId');
+export const tablaGeneral = collection(db, 'tablaGeneral');
