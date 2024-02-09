@@ -27,7 +27,8 @@ export const authHandlers = {
             return user;
         } catch (error) {
             console.error('Error signing up:', error.message);
-            throw error;
+            error = true;
+            return error;
         }
     },
     login: async (email, password) => {
@@ -35,7 +36,8 @@ export const authHandlers = {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
             console.error('Error logging in:', error.message);
-            throw error;
+            error = true;
+            return error;
         }
     },
     logout: async () => {
@@ -43,7 +45,8 @@ export const authHandlers = {
             await signOut(auth);
         } catch (error) {
             console.error('Error logging out:', error.message);
-            throw error;
+            error = true;
+            return error;
         }
     },
     resetPassword: async (email) => {
@@ -53,7 +56,8 @@ export const authHandlers = {
             // You can provide feedback to the user indicating that the email has been sent
         } catch (error) {
             console.error('Error sending password reset email:', error.message);
-            throw error;
+            error = true;
+            return;
         }
     }
 };
