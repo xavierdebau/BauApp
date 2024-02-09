@@ -128,7 +128,7 @@
   <!-- Tabla para mostrar los datos -->
   <table>
     <thead>
-      <tr>
+      <tr class="text-gray-800 hover:text-blue-200 dark:text-red-800">
         <th>Código Cliente</th>
         <th>Código Activo</th>
         <th>Nombre Activo</th>
@@ -144,10 +144,10 @@
           <td>{activo.codigoCliente}</td>
           <td>{activo.codigoActivo}</td>
           <td>{activo.nombreActivo}</td>
-          <td>{activo.fechaInicio}</td>
+          <td>{activo.fecha_creacion}</td>
           <td>{activo.componente}</td>
           <td>{activo.comentarios}</td>
-          <td>{activo.Cumplimientos}</td>
+          <td>{activo.cumplimientos}</td>
         </tr>
       {/each}
     </tbody>
@@ -170,7 +170,6 @@
     }
   
     .formulario input[type="text"],
-    .formulario input[type="date"],
     .formulario select {
       width: 100%;
       padding: 10px;
