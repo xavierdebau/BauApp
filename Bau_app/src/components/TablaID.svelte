@@ -116,40 +116,40 @@
   </script>
   
 <!-- Estructura HTML del formulario -->
-<div class="formulario bg-c16029 rounded-lg shadow-lg">
-    <label for="codigoCliente">Código 01 (cliente):</label>
+<div class="formulario bg-c16029 rounded-lg shadow-lg p-4">
+    <label for="codigoCliente" class="block text-sm font-medium text-gray-100">Código 01 (cliente):</label>
     <input type="text" id="codigoCliente" bind:value={codigoCliente} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
-    <label for="codigoActivo">Código 02 (activo):</label>
+    <label for="codigoActivo" class="block text-sm font-medium text-gray-100">Código 02 (activo):</label>
     <input type="text" id="codigoActivo" bind:value={codigoActivo} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
-    <label for="nombreActivo">Nombre activo:</label>
+    <label for="nombreActivo" class="block text-sm font-medium text-gray-100">Nombre activo:</label>
     <input type="text" id="nombreActivo" bind:value={nombreActivo} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
-    <label for="direccion">Dirección:</label>
+    <label for="direccion" class="block text-sm font-medium text-gray-100">Dirección:</label>
     <input type="text" id="direccion" bind:value={direccion} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
-    <label for="fechaInicio">Fecha de inicio:</label>
+    <label for="fechaInicio" class="block text-sm font-medium text-gray-100">Fecha de inicio:</label>
     <input type="date" id="fechaInicio" bind:value={fechaInicio} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
-    <label for="tipoObra">Es proyecto de obra nueva, proyecto de modificación o evaluación de entorno existente:</label>
+    <label for="tipoObra" class="block text-sm font-medium text-gray-100">Es proyecto de obra nueva, proyecto de modificación o evaluación de entorno existente:</label>
     <select id="tipoObra" bind:value={tipoObra} on:change={handleTipoObraChange} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
       <option value="Proyecto de obra nueva">Proyecto de obra nueva</option>
       <option value="Proyecto de modificación">Proyecto de modificación</option>
       <option value="Evaluación de entorno existente">Evaluación de entorno existente</option>
     </select>
   
-    <label for="tipoEdificio">Tipo edificio:</label>
+    <label for="tipoEdificio" class="block text-sm font-medium text-gray-100">Tipo edificio:</label>
     <input type="text" id="tipoEdificio" bind:value={tipoEdificio} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
-    <label for="cantidadPisos">Cantidad pisos:</label>
+    <label for="cantidadPisos" class="block text-sm font-medium text-gray-100">Cantidad pisos:</label>
     <select id="cantidadPisos" bind:value={cantidadPisos} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
       {#each listaCantidadPisos as piso}
         <option value={piso}>{piso}</option>
       {/each}
     </select>
   
-    <label for="superficie">Superficie:</label>
+    <label for="superficie" class="block text-sm font-medium text-gray-100">Superficie:</label>
     <select id="superficie" bind:value={superficie} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
       {#each listaSuperficie as superficieRange}
         <option value={superficieRange}>{superficieRange}</option>
@@ -157,16 +157,16 @@
     </select>
   
     {#if $showSubterraneo}
-      <label for="subterraneo">Subterráneo (sí/no):</label>
+      <label for="subterraneo" class="block text-sm font-medium text-gray-100">Subterráneo (sí/no):</label>
       <select id="subterraneo" bind:value={subterraneo} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
         <option value="Sí">Sí</option>
         <option value="No">No</option>
       </select>
     {/if}
-    <button on:click={handleSubmit} class="bg-blue-500 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600">Crear Activo</button>
+    <button on:click={handleSubmit} class="bg-blue-500 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600 mt-4">Crear Activo</button>
   </div>
 
-  <div class="max-w-full ">
+  <div class="max-w-full mt-8">
     <table class="w-full border-collapse rounded-lg bg-gray-300">
       <thead>
         <tr class="bg-gray-400">
@@ -200,12 +200,14 @@
       </tbody>
     </table>
   </div>
+
   <style>
     /* Estilos CSS para el formulario */
     .formulario {
       max-width: 600px;
       margin: 0 auto;
       border: 1px solid #ccc;
+      background-color: #2b2929; 
       border-radius: 8px;
       padding: 20px;
     }

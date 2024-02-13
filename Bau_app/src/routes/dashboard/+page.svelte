@@ -1,102 +1,94 @@
-
 <script>
-    import {authHandlers} from "../../store/store";
     import Signup from "../../components/Signup.svelte";
-    import TablaGeneral from "../../components/TablaGeneral.svelte"
-    import { TabGroup, Tab, TabAnchor } from '@skeletonlabs/skeleton';
-	import TablaId from "../../components/TablaID.svelte";
-    let activeTab = 1;
-    // Función para manejar el cambio de pestaña
-    function handleTabChange(newValue) {
-        activeTab = newValue;
-    };
+    import TablaGeneral from "../../components/TablaGeneral.svelte";
+    import TablaId from "../../components/TablaID.svelte";
+    import Header from "../../components/Header.svelte";
+    import {AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
+    let currentTile = 1; // Initialize the current tile index
 
+    // Function to handle the change of the active tile
+    function handleTileChange(newValue) {
+        currentTile = newValue;
+    }
 </script>
-<div class="mainContainer">
-    <div class="headerContainer">
-        <h1>Welcome</h1>
-        <button on:click={authHandlers.logout}>Logout</button>
-       
-    </div>
-    <main> 
-         <!-- Componente TabGroup -->
-        <TabGroup bind:tabSet={activeTab}>
-            <!-- Componente Tab para la pestaña Signup -->
-            <Tab bind:group={activeTab} name="signup" value={0}>
-                <svelte:fragment slot="lead">(icon)</svelte:fragment>
-                <span>Signup</span>
-            </Tab>
-            <!-- Componente Tab para la pestaña FormTabla -->
-            <Tab bind:group={activeTab} name="TablaID" value={1}>
-                <svelte:fragment slot="lead">(icon)</svelte:fragment>
-                <span>ID</span>
-            </Tab>
-            <!-- Componente Tab para la pestaña FormTabla -->
-            <Tab bind:group={activeTab} name="TablaGeneral" value={2}>
-                <svelte:fragment slot="lead">(icon)</svelte:fragment>
-                <span>General</span>
-            </Tab>
+<Header/>
 
-            <!-- Contenido de las pestañas -->
-            <svelte:fragment slot="panel">
-                {#if activeTab === 0}
-                <Signup/> <!-- Componente Signup -->
-                {:else if activeTab === 1}
-                <TablaId/> <!-- Componente TablaID -->
-                {:else if activeTab === 2}
-                <TablaGeneral/> <!-- Componente TablaGeneral -->
-                {/if}
-            </svelte:fragment>
-        </TabGroup>
-    </main>
+<div class="mainContainer">
+    <div class="contentContainer">
+        <div class="railContainer">
+            <!-- App Rail tiles for different sections -->
+            <div class="railTiles">
+                <AppRailTile bind:group={currentTile} name="signup" value={0} title="Signup" on:click={() => handleTileChange(0)}>
+                    <span class:selected={currentTile === 0} slot="lead">(icon)</span>
+                    <span class:selected={currentTile === 0}>Signup</span>
+                </AppRailTile>
+                <div class="divider"></div>
+                <AppRailTile bind:group={currentTile} name="tablaId" value={1} title="ID" on:click={() => handleTileChange(1)}>
+                    <span class:selected={currentTile === 1} slot="lead">(icon)</span>
+                    <span class:selected={currentTile === 1}>ID</span>
+                </AppRailTile>
+                <div class="divider"></div>
+                <AppRailTile bind:group={currentTile} name="tablaGeneral" value={2} title="General" on:click={() => handleTileChange(2)}>
+                    <span class:selected={currentTile === 2} slot="lead">(icon)</span>
+                    <span class:selected={currentTile === 2}>General</span>
+                </AppRailTile>
+            </div>
+        </div>
+        <div class="content">
+            <!-- Content based on the active tile -->
+            {#if currentTile === 0}
+                <Signup/> <!-- Signup Component -->
+            {:else if currentTile === 1}
+                <TablaId/> <!-- TablaID Component -->
+            {:else if currentTile === 2}
+                <TablaGeneral/> <!-- TablaGeneral Component -->
+            {/if}
+        </div>
+    </div>
 </div>
 
 <style>
-    .mainContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        padding: 15px;
-    }
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+}
 
-    .headerContainer {
-        width: 100%;
-        max-width: 800px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
+.contentContainer {
+    display: flex;
+    flex: 1;
+    justify-content: space-between; /* Align items to the sides */
+    width: 100%;
+    max-width: 800px;
+}
 
-    button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+.content {
+    width: 70%; /* Adjust width of content as needed */
+}
 
-    button:hover {
-        background-color: #0056b3;
-    }
+.railContainer {
+    background-color: #333; /* Dark gray background color */
+    padding: 10px; /* Adjust padding as needed */
+    width: 30%; /* Adjust width of rail as needed */
+}
 
-    
 
-    main {
-        width: 100%;
-        max-width: 800px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+/* Styling for selected tile */
+.selected {
+    background-color: lightblue;
+    color: #333; /* Dark letters */
+}
+.railTiles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the space between tiles */
+}
 
-    h1{
-        margin: 0;
-        font-weight: normal;
-    }
-
+.divider {
+    height: 1px;
+    background-color: #ccc; /* Adjust the color of the division */
+    margin: 5px 0; /* Adjust the margin to control the space around the divider */
+}
 </style>

@@ -77,70 +77,70 @@
       cargarActivosAnteriores();  
     });
 </script>
-  <!-- Estructura HTML de la Tabla General -->
+
 <div class="formulario bg-c16029 rounded-lg shadow-lg p-4">
-    <!-- Selección de componentes, niveles y comentarios -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="mb-6">
-            <label for="codigoCliente" class="block text-sm font-medium text-gray-100">Código Cliente:</label>
-            <input type="text" id="codigoCliente" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={codigoCliente}>
-        </div>
+  <!-- Selección de componentes, niveles y comentarios -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="mb-6">
+          <label for="codigoCliente" class="block text-sm font-medium text-gray-100">Código Cliente:</label>
+          <input type="text" id="codigoCliente" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={codigoCliente}>
+      </div>
 
-        <div class="mb-6">
-            <label for="codigoActivo" class="block text-sm font-medium text-gray-100">Código Activo:</label>
-            <input type="text" id="codigoActivo" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={codigoActivo}>
-        </div>
+      <div class="mb-6">
+          <label for="codigoActivo" class="block text-sm font-medium text-gray-100">Código Activo:</label>
+          <input type="text" id="codigoActivo" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={codigoActivo}>
+      </div>
 
-        <div class="mb-6">
-            <label for="nombreActivo" class="block text-sm font-medium text-gray-100">Nombre Activo:</label>
-            <input type="text" id="nombreActivo" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={nombreActivo}>
-        </div>
+      <div class="mb-6">
+          <label for="nombreActivo" class="block text-sm font-medium text-gray-100">Nombre Activo:</label>
+          <input type="text" id="nombreActivo" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={nombreActivo}>
+      </div>
 
-        <div class="mb-6">
-            <label for="componente" class="block text-sm font-medium text-gray-100">Componente:</label>
-            <select id="componente" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={componente}>
-                <option value="">Componente</option>
-                {#each componentes as component}
-                    <option value={component}>{component}</option>
-                {/each}
-            </select>
-        </div>
+      <div class="mb-6">
+          <label for="componente" class="block text-sm font-medium text-gray-100">Componente:</label>
+          <select id="componente" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={componente}>
+              <option value="">Componente</option>
+              {#each componentes as component}
+                  <option value={component}>{component}</option>
+              {/each}
+          </select>
+      </div>
 
-        <div class="mb-6">
-            <label for="cumplimientos" class="block text-sm font-medium text-gray-100">Cumplimientos:</label>
-            <select id="cumplimientos" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={cumplimientos}>
-                <option value="">Indicación de Cumplimientos</option>
-                {#each estadoDeActivo as estado}
-                    <option value={estado}>{estado}</option>
-                {/each}
-            </select>
-        </div>
+      <div class="mb-6">
+          <label for="cumplimientos" class="block text-sm font-medium text-gray-100">Cumplimientos:</label>
+          <select id="cumplimientos" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={cumplimientos}>
+              <option value="">Indicación de Cumplimientos</option>
+              {#each estadoDeActivo as estado}
+                  <option value={estado}>{estado}</option>
+              {/each}
+          </select>
+      </div>
 
-        <div class="mb-6 col-span-2">
-            <label for="comentarios" class="block text-sm font-medium text-gray-100">Comentarios:</label>
-            <textarea id="comentarios" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={comentarios}></textarea>
-        </div>
+      <div class="mb-6 col-span-2">
+          <label for="comentarios" class="block text-sm font-medium text-gray-100">Comentarios:</label>
+          <textarea id="comentarios" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={comentarios}></textarea>
+      </div>
 
-    </div>
-    <button class="bg-blue-500 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600" on:click={handleSubmit}>Enviar</button>
+  </div>
+  <button class="bg-blue-500 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600" on:click={handleSubmit}>Enviar</button>
 </div>
 
-  <!-- Tabla para mostrar los datos -->
-  <table>
-    <thead>
+<!-- Tabla para mostrar los datos -->
+<table class="mt-4">
+  <thead>
       <tr class="text-gray-800 hover:text-blue-200 dark:text-red-800">
-        <th>Código Cliente</th>
-        <th>Código Activo</th>
-        <th>Nombre Activo</th>
-        <th>Fecha de Inicio</th>
-        <th>Componentes a Evaluar</th>
-        <th>Comentarios</th>
-        <th>Cumplimientos</th>
+          <th>Código Cliente</th>
+          <th>Código Activo</th>
+          <th>Nombre Activo</th>
+          <th>Fecha de Inicio</th>
+          <th>Componentes a Evaluar</th>
+          <th>Comentarios</th>
+          <th>Cumplimientos</th>
       </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
       {#each $activosAnteriores as activo}
-        <tr>
+      <tr>
           <td>{activo.codigoCliente}</td>
           <td>{activo.codigoActivo}</td>
           <td>{activo.nombreActivo}</td>
@@ -148,66 +148,74 @@
           <td>{activo.componente}</td>
           <td>{activo.comentarios}</td>
           <td>{activo.cumplimientos}</td>
-        </tr>
+      </tr>
       {/each}
-    </tbody>
-  </table>
-  
-  <style>
-    /* Estilos CSS para la Tabla General */
-    .formulario {
+  </tbody>
+</table>
+
+<style>
+  /* Estilos CSS para la Tabla General */
+  .formulario {
       max-width: 600px;
       margin: 0 auto;
       border: 1px solid #ccc;
       border-radius: 8px;
       padding: 20px;
-      margin-bottom: 20px; /* Añadido para separación */
-    }
-  
-    .formulario label {
+      margin-bottom: 20px;
+      background-color: #2b2929; /* Nuevo color de fondo */
+  }
+
+  .formulario label {
       display: block;
-      margin-bottom: 5px;
-    }
-  
-    .formulario input[type="text"],
-    .formulario select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #1b20ad;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-  
-    .formulario button {
+      margin-bottom: 10px; /* Reducido el margen inferior */
+  }
+
+  .formulario input[type="text"],
+  .formulario select,
+  .formulario textarea {
+      width: calc(100% - 20px); /* Ajuste del ancho con margen izquierdo y derecho */
+      padding: 8px;
+      border: 1px solid #ddd; /* Borde más suave */
+      border-radius: 4px;
+      margin-bottom: 15px; /* Aumento del margen inferior */
+  }
+
+  .formulario button {
       background-color: #007bff;
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 24px; /* Aumento del relleno */
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
       transition: background-color 0.3s;
       display: block;
-      margin-top: 10px;
-    }
-  
-    .formulario button:hover {
+      margin-top: 15px; /* Aumento del margen superior */
+  }
+
+  .formulario button:hover {
       background-color: #0056b3;
-    }
-  
-    table {
+  }
+
+  table {
       border-collapse: collapse;
       width: 100%;
-    }
-  
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
+      margin-top: 20px; /* Aumento del margen superior */
+  }
+
+  th,
+  td {
+      border: 1px solid #ddd;
+      padding: 10px; /* Aumento del relleno */
       text-align: left;
-    }
-  
-    th {
+  }
+
+  th {
       background-color: #f2f2f2;
-    }
-  </style>
-  
+      font-weight: bold; /* Texto en negrita para encabezados */
+  }
+
+  td {
+      background-color: #404040; /* Color de fondo para las celdas de datos */
+  }
+</style>
