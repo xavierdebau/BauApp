@@ -5,23 +5,33 @@
     import { tablaGeneral, auth, tablaEspecifica } from '../lib/firebase/firebase';
     import { addDoc, onSnapshot } from 'firebase/firestore';
 
-    // Definir las variables
+// Definir las variables estaticas para respuesta de formulario
     const componentes = [
         "Cruce", "Desnivel", "Rebaja de vereda", "Estacionamiento", "Entorno",
         "Acceso", "Mesón y area de atención", "Puertas de Acceso/Evacuación",
         "Puertas otros recintos", "Rampas/Planos inclinados", "Escaleras/Escaleras Mecanicas",
         "Servicio Hegiénico", "Evacuación", "Camarín", "Auditoria/Grandes salas"
     ];
+
     const items = ["General", "Señalización"];
 
+    const N_EST = ["N -4.1.7 NUM 5","N -4.1.7 NUM 5","N -4.1.7 NUM 5","N -4.1.7 NUM 5","N -4.1.7 NUM 5",
+                    "MANUAL DE SEÑALIZACIÓN DE TRÁNSITO. DTO 78","MANUAL DE SEÑALIZACIÓN DE TRÁNSITO. DTO 78"];
+
+    let nombresComponenteDisponibles: string[] = []; // Nombres de componente disponibles
+
+
+//elementos de formulario
     let componente: string = ''; // Selección de componentes a evaluar
     let nombreComponente: string = ''; // Nombre específico de componentes a evaluar
     let codigoCliente: string = ''; // Variable para el código del cliente
     let codigoActivo: string = ''; // Variable para el código del activo
+    let nivel: string = ''; // Variable para el nivel en el que se encuentra el componente
+    let sector: string = ''; //Variable para el sector en el que se encuentra el componente
     let item: string = ''; // Item seleccionado
-    let cumplimientos: Record<string, string> = {}; // Opciones de cumplimiento para cada componente
+    let norma: string = ''; // Normativa seleccionada(estacionamientos)
+    let estadoNorma: boolean = true; // Valor de la norma
     let comentarios: string = ''; // Comentarios breves
-    let nombresComponenteDisponibles: string[] = []; // Nombres de componente disponibles
     let ValidoParaEvaluacion: boolean = true; //
 
     // Función para cargar los nombres de componente disponibles desde ActivosTG
@@ -50,7 +60,6 @@
     function limpiarFormulario() {
         comentarios = '';
         nombreComponente = '';
-        cumplimientos = {};
     };
 
     // Función para manejar el envío del formulario
@@ -62,11 +71,14 @@
             fecha_creacion,
             codigoCliente,
             codigoActivo,
+            nivel,
+            sector,
             componente,
             nombreComponente,
             item,
+            norma,
+            estadoNorma,
             comentarios,
-            cumplimientos,
             ValidoParaEvaluacion
         };
 
@@ -117,6 +129,14 @@
             <label for="codigoActivo" class="block text-sm font-medium text-gray-100">Código Activo:</label>
             <input type="text" id="codigoActivo" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={codigoActivo}>
         </div>
+        <div class="mb-6">
+            <label for="nivel" class="block text-sm font-medium text-gray-100">Nivel:</label>
+            <input type="text" id="nivel" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={nivel}>
+        </div>
+        <div class="mb-6">
+            <label for="sector" class="block text-sm font-medium text-gray-100">Sector:</label>
+            <input type="text" id="sector" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={sector}>
+        </div>
 
        
         <div class="mb-6">
@@ -148,6 +168,23 @@
                 {/each}
             </select>
         </div>
+
+        <div class="mb-6">
+            <label for="norma" class="block text-sm font-medium text-gray-100">Normativa:</label>
+            <select id="norma" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={norma} on:change={() => cargarNombresComponenteDisponibles(componente)}>
+                <option value="">Norma</option>
+                {#each N_EST as normativa}
+                    <option value={normativa}>{normativa}</option>
+                {/each}
+            </select>
+        </div>
+        <div class="mb-6">
+            <label for="estadoNorma" class="block text-sm font-medium text-gray-100">Estado norma:</label>
+            <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                <input type="checkbox" id="validoParaEvaluacion" name="estadoNorma" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" bind:checked={estadoNorma}>
+                <label for="estadoNorma" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+            </div>
+        </div>
   
         <div class="mb-6 col-span-2">
             <label for="comentarios" class="block text-sm font-medium text-gray-100">Comentarios:</label>
@@ -158,14 +195,15 @@
     <!-- Nuevo campo para ValidoParaEvaluacion -->
     <div class="mb-6">
         <label for="validoParaEvaluacion" class="block text-sm font-medium text-gray-100">Válido Para Evaluación:</label>
-        <input type="checkbox" id="validoParaEvaluacion" class="mt-1 p-2 w-full border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:checked={ValidoParaEvaluacion}>
+        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+            <input type="checkbox" id="validoParaEvaluacion" name="validoParaEvaluacion" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" bind:checked={ValidoParaEvaluacion}>
+            <label for="validoParaEvaluacion" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+        </div>
     </div>
+    
   
     <button class="bg-blue-500 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600" on:click={handleSubmit}>Enviar</button>
 </div>
-
-
-
   
   <!-- Tabla para mostrar los datos  -->
   <table class="mt-4">
@@ -174,10 +212,14 @@
             <th>Código Cliente</th>
             <th>Código Activo</th>
             <th>Fecha de Inicio</th>
+            <th>Nivel</th>
+            <th>Sector</th>
             <th>Componente a Evaluar</th>
             <th>Nombre de Componente</th>
+            <th>Norma</th>
+            <th>Estado de Norma</th>
             <th>Comentarios</th>
-            <th>Estado de validación</th>
+            
 
         </tr>
     </thead>
@@ -186,11 +228,15 @@
         <tr class="{activo.ValidoParaEvaluacion ? 'bg-green-800' : 'bg-red-800'}">
             <td>{activo.codigoCliente}</td>
             <td>{activo.codigoActivo}</td>
-            <td>{activo.fecha_creacion}</td>
+            <td>{activo.fecha_creacion}</td>           
+            <td>{activo.nivel}</td>
+            <td>{activo.sector}</td>
             <td>{activo.componente}</td>
             <td>{activo.nombreComponente}</td>
+            <td>{activo.norma}</td>
+            <td>{activo.estadoNorma}</td>
             <td>{activo.comentarios}</td>
-            <td>{activo.ValidoParaEvaluacion}</td>
+            
         </tr>
         {/each}
     </tbody>
