@@ -5,7 +5,7 @@
     import { tablaGeneral,auth } from '../lib/firebase/firebase';
     import { addDoc, onSnapshot } from 'firebase/firestore';
   
-    const componentes = ["Cruce","Desnibel","Rebaja de vereda","Estacionamiento","Entorno","Acceso","Meson y area de atención","Puertas de Acceso/Evacuación","Puertas otros recintos","Rampas/Planos inclinados","Escaleras/Escaleras Mecanicas","Servicio Hegiénico","Evacuación","Camarín","Auditoria/Grandes salas"];
+    const componentes = ["Cruce","Desnivel","Rebaja de vereda","Estacionamiento","Entorno","Acceso","Mesón y area de atención","Puertas de Acceso/Evacuación","Puertas otros recintos","Rampas/Planos inclinados","Escaleras/Escaleras Mecanicas","Servicio Hegiénico","Evacuación","Camarín","Auditoria/Grandes salas"];
     const estadoDeActivo = ["Cumple","No Cumple","Observación Condicional","No Aplica"];
   
     let codigoCliente: string = ''; // Variable para el código del cliente
@@ -13,6 +13,7 @@
     let nombreActivo: string = ''; // Variable para el nombre del activo
     
     let componente: string[] = []; // Selección de componentes a evaluar
+    let nombreComponente: string = ''; // Nombre especifico de componentes a evaluar
     let comentarios: string = ''; // Comentarios breves
     let cumplimientos: Record<string, string> = {}; // Opciones de cumplimiento para cada componente
   
@@ -44,6 +45,7 @@
     // Función para limpiar los campos del formulario
     function limpiarFormulario() {
       comentarios = '';
+      nombreComponente = '';
       componente= [];
       cumplimientos = {};
     };
@@ -59,9 +61,11 @@
             codigoActivo,
             nombreActivo,
             componente,
+            nombreComponente,
             comentarios,
             cumplimientos
         };
+        
     
         try {
             // Agrega los datos del nuevo activo a la colección en Firestore
@@ -94,6 +98,11 @@
       <div class="mb-6">
           <label for="nombreActivo" class="block text-sm font-medium text-gray-100">Nombre Activo:</label>
           <input type="text" id="nombreActivo" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={nombreActivo}>
+      </div>
+
+      <div class="mb-6">
+          <label for="nombreComponente" class="block text-sm font-medium text-gray-100">Nombre Componente:</label>
+          <input type="text" id="nombreComponente" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black" bind:value={nombreComponente}>
       </div>
 
       <div class="mb-6">
@@ -133,7 +142,8 @@
           <th>Código Activo</th>
           <th>Nombre Activo</th>
           <th>Fecha de Inicio</th>
-          <th>Componentes a Evaluar</th>
+          <th>Componente a Evaluar</th>
+          <th>Nombre de Componente</th>
           <th>Comentarios</th>
           <th>Cumplimientos</th>
       </tr>
@@ -146,6 +156,7 @@
           <td>{activo.nombreActivo}</td>
           <td>{activo.fecha_creacion}</td>
           <td>{activo.componente}</td>
+          <td>{activo.nombreComponente}</td>
           <td>{activo.comentarios}</td>
           <td>{activo.cumplimientos}</td>
       </tr>

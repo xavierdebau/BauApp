@@ -2,6 +2,7 @@
     import Signup from "../../components/Signup.svelte";
     import TablaGeneral from "../../components/TablaGeneral.svelte";
     import TablaId from "../../components/TablaID.svelte";
+    import TablaEspecifica from "../../components/TablaEspecifica.svelte";
     import Header from "../../components/Header.svelte";
     import {AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
     let currentTile = 1; // Initialize the current tile index
@@ -32,6 +33,11 @@
                     <span class:selected={currentTile === 2} slot="lead">(icon)</span>
                     <span class:selected={currentTile === 2}>General</span>
                 </AppRailTile>
+                <div class="divider"></div>
+                <AppRailTile bind:group={currentTile} name="tablaEspecifica" value={3} title="Especifica" on:click={() => handleTileChange(2)}>
+                    <span class:selected={currentTile === 3} slot="lead">(icon)</span>
+                    <span class:selected={currentTile === 3}>Especifica</span>
+                </AppRailTile>
             </div>
         </div>
         <div class="content">
@@ -42,6 +48,8 @@
                 <TablaId/> <!-- TablaID Component -->
             {:else if currentTile === 2}
                 <TablaGeneral/> <!-- TablaGeneral Component -->
+            {:else if currentTile === 3}
+                <TablaEspecifica/> <!-- TablaESpecifica Component -->
             {/if}
         </div>
     </div>
