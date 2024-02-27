@@ -11,7 +11,7 @@
     let error = "";
     let userList = []; // Store user list
 
-    const userTypes = ["admin", "technician", "regular"]; // Available user types
+    const userTypes = ["administrador", "técnico", "regular"]; // Available user types
 
     async function handleSignup() {
         if (!validateForm()) return;

@@ -110,13 +110,18 @@
     // Definir el store para los activos anteriores
     export const activosAnteriores = writable([]);
 
+    let userType: string | null = null;
 
-    onMount(() => { 
+
+    
+    onMount(() => {
+        auth.onAuthStateChanged(user => {
+            userType = user ? user.userType || null : null;
+    });  
         cargarActivosAnteriores();
         cargarNombresComponenteDisponibles(componente);
     });
 </script>
-
 <div class="formulario bg-c16029 rounded-lg shadow-lg p-4">
     <!-- Selección de componentes, niveles y comentarios -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

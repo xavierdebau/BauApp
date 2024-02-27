@@ -5,12 +5,61 @@
     import TablaEspecifica from "../../components/TablaEspecifica.svelte";
     import Header from "../../components/Header.svelte";
     import {AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
+
+    import {auth} from '../../lib/firebase/firebase';
+    import { getFirestore, doc, getDoc } from 'firebase/firestore';
+    
+    let userType = '';
+    let showAdminTiles = false; 
+
+    async function getUserInfo(uid) {
+        try {
+            const db = getFirestore();
+            const userRef = doc(db, 'users', uid);
+            const userDoc = await getDoc(userRef);
+            if (userDoc.exists()) {
+                return userDoc.data();
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error al obtener la información del usuario:', error);
+            return null;
+        }
+    }
+
+
+        // Función para manejar el cambio en el estado de autenticación
+    auth.onAuthStateChanged(async (user) => {
+        if (user) {
+            // El usuario está autenticado
+            const userInfo = await getUserInfo(user.uid);
+            userType = userInfo ? userInfo.userType : null;
+            console.log(userType);
+            
+            // Una vez que se ha determinado el userType, actualiza la visibilidad de los tiles
+            if (userType === 'administrador') {
+                // Permitir la visualización de los tiles de Signup y ID
+                showAdminTiles = true;
+            } else {
+                // No permitir la visualización de los tiles de Signup y ID
+                showAdminTiles = false;
+            }
+        } else {
+            // No hay usuario autenticado
+            console.log('No hay usuario autenticado.');
+        }
+    });
+
+
+    
     let currentTile = 1; // Initialize the current tile index
 
     // Function to handle the change of the active tile
     function handleTileChange(newValue) {
         currentTile = newValue;
     }
+
 </script>
 <Header/>
 
@@ -19,26 +68,29 @@
         <div class="railContainer">
             <!-- App Rail tiles for different sections -->
             <div class="railTiles">
-                <AppRailTile bind:group={currentTile} name="signup" value={0} title="Signup" on:click={() => handleTileChange(0)}>
-                    <span class:selected={currentTile === 0} slot="lead">(icon)</span>
-                    <span class:selected={currentTile === 0}>Signup</span>
-                </AppRailTile>
-                <div class="divider"></div>
-                <AppRailTile bind:group={currentTile} name="tablaId" value={1} title="ID" on:click={() => handleTileChange(1)}>
-                    <span class:selected={currentTile === 1} slot="lead">(icon)</span>
-                    <span class:selected={currentTile === 1}>ID</span>
-                </AppRailTile>
-                <div class="divider"></div>
+                {#if showAdminTiles}
+                    <AppRailTile bind:group={currentTile} name="signup" value={0} title="Signup" on:click={() => handleTileChange(0)}>
+                        <span class:selected={currentTile === 0} slot="lead">(icon)</span>
+                        <span class:selected={currentTile === 0}>Signup</span>
+                    </AppRailTile>
+                    <div class="divider"></div>
+                    <AppRailTile bind:group={currentTile} name="tablaId" value={1} title="ID" on:click={() => handleTileChange(1)}>
+                        <span class:selected={currentTile === 1} slot="lead">(icon)</span>
+                        <span class:selected={currentTile === 1}>ID</span>
+                    </AppRailTile>
+                    <div class="divider"></div>
+                {/if}
                 <AppRailTile bind:group={currentTile} name="tablaGeneral" value={2} title="General" on:click={() => handleTileChange(2)}>
                     <span class:selected={currentTile === 2} slot="lead">(icon)</span>
                     <span class:selected={currentTile === 2}>General</span>
                 </AppRailTile>
                 <div class="divider"></div>
-                <AppRailTile bind:group={currentTile} name="tablaEspecifica" value={3} title="Especifica" on:click={() => handleTileChange(2)}>
+                <AppRailTile bind:group={currentTile} name="tablaEspecifica" value={3} title="Especifica" on:click={() => handleTileChange(3)}>
                     <span class:selected={currentTile === 3} slot="lead">(icon)</span>
                     <span class:selected={currentTile === 3}>Especifica</span>
                 </AppRailTile>
             </div>
+            
         </div>
         <div class="content">
             <!-- Content based on the active tile -->
