@@ -110,14 +110,8 @@
     // Definir el store para los activos anteriores
     export const activosAnteriores = writable([]);
 
-    let userType: string | null = null;
 
-
-    
     onMount(() => {
-        auth.onAuthStateChanged(user => {
-            userType = user ? user.userType || null : null;
-    });  
         cargarActivosAnteriores();
         cargarNombresComponenteDisponibles(componente);
     });

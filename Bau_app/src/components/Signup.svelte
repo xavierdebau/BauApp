@@ -76,6 +76,26 @@
     .AuthContainer select {
         color: black;
     }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px; /* Aumento del margen superior */
+    }
+  
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 10px; /* Aumento del relleno */
+        text-align: left;
+    }
+  
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold; /* Texto en negrita para encabezados */
+    }
+    td {
+      background-color: #404040; /* Color de fondo para las celdas de datos */
+    }
 </style>
 
 <!--Formulari de creacion de ususario-->
@@ -126,7 +146,7 @@
     <h2 class="text-xl font-bold mb-4">Usuarios Registrados</h2>
     <table class="min-w-full">
         <thead>
-            <tr>
+            <tr class="text-gray-800 hover:text-blue-200 dark:text-red-800">
                 <th class="px-4 py-2">Email</th>
                 <th class="px-4 py-2">User Type</th>
             </tr>
