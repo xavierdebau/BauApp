@@ -111,7 +111,7 @@
 .mainContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left center;
     min-height: 100vh;
     padding: 15px;
 }
