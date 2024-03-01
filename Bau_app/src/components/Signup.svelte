@@ -95,7 +95,7 @@
     }
     td {
       background-color: #404040; /* Color de fondo para las celdas de datos */
-    }
+  }
 </style>
 
 <!--Formulari de creacion de ususario-->
@@ -113,21 +113,21 @@
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-                Password:
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={password} type="password" placeholder="Password"/>
+                Contraseña:
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={password} type="password" placeholder="Contraseña"/>
             </label>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-                Confirm Password:
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={confirmPassword} type="password" placeholder="Confirm Password"/>
+                Confirme contraseña:
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={confirmPassword} type="password" placeholder="Confirme contraseña"/>
             </label>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-                Select User Type:
+                Seleccione tipo de usuario 
                 <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={userType} placeholder="Select User Type">
-                    <option value="">Select User Type</option>
+                    <option value="">Tipo de usuario</option>
                     {#each userTypes as type}
                         <option value={type}>{type}</option>
                     {/each}
@@ -135,7 +135,7 @@
             </label>
         </div>
         <div class="mb-6">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" on:click={handleSignup} type="button">Register</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" on:click={handleSignup} type="button">Registrar</button>
         </div>
     </form>
 </div>
@@ -148,7 +148,7 @@
         <thead>
             <tr class="text-gray-800 hover:text-blue-200 dark:text-red-800">
                 <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">User Type</th>
+                <th class="px-4 py-2">Tipo</th>
             </tr>
         </thead>
         <tbody>

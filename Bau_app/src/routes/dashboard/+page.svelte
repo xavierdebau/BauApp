@@ -61,12 +61,13 @@
     }
 
 </script>
+<!--Barra Superior con logo y boton para logout -->
 <Header/>
 
 <div class="mainContainer">
     <div class="contentContainer">
         <div class="railContainer">
-            <!-- App Rail tiles for different sections -->
+            <!-- App Rail tiles para las distintas tablas y sus respectivos formularios -->
             <div class="railTiles">
                 {#if showAdminTiles}
                     <AppRailTile bind:group={currentTile} name="signup" value={0} title="Signup" on:click={() => handleTileChange(0)}>
