@@ -149,8 +149,9 @@
       <tr class="text-gray-800 hover:text-blue-200 dark:text-red-800">
           <th>Componente a Evaluar</th>
           <th>Nombre de Componente</th>
-          <th>Comentarios</th>
           <th>Cumplimientos</th>
+          <th>Comentarios</th>
+          
       </tr>
   </thead>
   <tbody>
@@ -158,8 +159,9 @@
       <tr>
           <td>{activo.componente}</td>
           <td>{activo.nombreComponente}</td>
-          <td>{activo.comentarios}</td>
           <td>{activo.cumplimientos}</td>
+          <td>{activo.comentarios}</td>
+          
           
           <td>
             <button class="bg-red-500 text-white px-2 py-1 rounded-md transition duration-300 ease-in-out hover:bg-red-600" on:click={() => handleDelete(activo.id)}>
@@ -227,7 +229,7 @@
   th,
   td {
       border: 1px solid #ddd;
-      padding: 10px; /* Aumento del relleno */
+      padding: 15px; /* Aumento del relleno */
       text-align: left;
   }
 
@@ -238,5 +240,6 @@
 
   td {
       background-color: #404040; /* Color de fondo para las celdas de datos */
+      max-width: 100%;
   }
 </style>

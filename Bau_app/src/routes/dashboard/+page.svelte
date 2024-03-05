@@ -122,11 +122,10 @@
     flex: 1;
     justify-content: space-between; /* Align items to the sides */
     width: 100%;
-    max-width: 800px;
 }
 
 .content {
-    width: 70%; /* Adjust width of content as needed */
+    width: 100%; /* Adjust width of content as needed */
 }
 
 .railContainer {
