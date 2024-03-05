@@ -147,10 +147,6 @@
 <table class="mt-4">
   <thead>
       <tr class="text-gray-800 hover:text-blue-200 dark:text-red-800">
-          <th>Código Cliente</th>
-          <th>Código Activo</th>
-          <th>Nombre Activo</th>
-          <th>Fecha de Inicio</th>
           <th>Componente a Evaluar</th>
           <th>Nombre de Componente</th>
           <th>Comentarios</th>
@@ -160,10 +156,6 @@
   <tbody>
       {#each $activosAnteriores as activo}
       <tr>
-          <td>{activo.codigoCliente}</td>
-          <td>{activo.codigoActivo}</td>
-          <td>{activo.nombreActivo}</td>
-          <td>{activo.fecha_creacion}</td>
           <td>{activo.componente}</td>
           <td>{activo.nombreComponente}</td>
           <td>{activo.comentarios}</td>
