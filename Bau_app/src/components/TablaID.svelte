@@ -30,7 +30,6 @@
     // Campos del formulario
     let codigoCliente = '';
     let codigoActivo = '';
-    let nombreActivo = '';
     let direccion = '';
     let fechaInicio = new Date().toISOString().split('T')[0];
     let tipoObra = '';
@@ -62,7 +61,6 @@
     function limpiarFormulario() {
         codigoCliente = '';
         codigoActivo = '';
-        nombreActivo = '';
         direccion = '';
         fechaInicio = new Date().toISOString().split('T')[0]; // Restaurar la fecha al valor por defecto
         tipoObra = '';
@@ -93,7 +91,6 @@
         id_creador,
         codigoCliente,
         codigoActivo,
-        nombreActivo,
         direccion,
         fechaInicio,
         tipoObra,
@@ -131,9 +128,6 @@
   
     <label for="codigoActivo" class="block text-sm font-medium text-gray-100">Código 02 (activo):</label>
     <input type="text" id="codigoActivo" bind:value={codigoActivo} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
-  
-    <label for="nombreActivo" class="block text-sm font-medium text-gray-100">Nombre activo:</label>
-    <input type="text" id="nombreActivo" bind:value={nombreActivo} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
     <label for="direccion" class="block text-sm font-medium text-gray-100">Dirección:</label>
     <input type="text" id="direccion" bind:value={direccion} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
@@ -181,7 +175,6 @@
         <tr class="bg-gray-400">
           <th class="px-4 py-2 text-white">Código Cliente</th>
           <th class="px-4 py-2 text-white">Código Activo</th>
-          <th class="px-4 py-2 text-white">Nombre Activo</th>
           <th class="px-4 py-2 text-white">Dirección</th>
           <th class="px-4 py-2 text-white">Fecha de Inicio</th>
           <th class="px-4 py-2 text-white">Tipo de Obra</th>
@@ -196,7 +189,6 @@
           <tr class="border-b">
             <td class="px-4 py-2">{activo.codigoCliente}</td>
             <td class="px-4 py-2">{activo.codigoActivo}</td>
-            <td class="px-4 py-2">{activo.nombreActivo}</td>
             <td class="px-4 py-2">{activo.direccion}</td>
             <td class="px-4 py-2">{activo.fechaInicio}</td>
             <td class="px-4 py-2">{activo.tipoObra}</td>
