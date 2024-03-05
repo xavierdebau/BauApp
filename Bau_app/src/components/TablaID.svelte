@@ -38,9 +38,6 @@
     let superficie = '';
     let subterraneo = '';
   
-    // Lista de opciones para cantidad de pisos y superficie
-    const listaCantidadPisos = ["1", "2", "3", "4", "5 o más"];
-    const listaSuperficie = ["Menos de 50m²", "50m² - 100m²", "100m² - 200m²", "Más de 200m²"];
   
     // Store para manejar la visibilidad del campo de subterráneo
     const showSubterraneo = writable(false);
@@ -146,18 +143,11 @@
     <input type="text" id="tipoEdificio" bind:value={tipoEdificio} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
     <label for="cantidadPisos" class="block text-sm font-medium text-gray-100">Cantidad pisos:</label>
-    <select id="cantidadPisos" bind:value={cantidadPisos} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
-      {#each listaCantidadPisos as piso}
-        <option value={piso}>{piso}</option>
-      {/each}
-    </select>
+    <input id="cantidadPisos" bind:value={cantidadPisos} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
   
     <label for="superficie" class="block text-sm font-medium text-gray-100">Superficie:</label>
-    <select id="superficie" bind:value={superficie} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
-      {#each listaSuperficie as superficieRange}
-        <option value={superficieRange}>{superficieRange}</option>
-      {/each}
-    </select>
+    <input id="superficie" bind:value={superficie} class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 text-black">
+
   
     {#if $showSubterraneo}
       <label for="subterraneo" class="block text-sm font-medium text-gray-100">Subterráneo (sí/no):</label>
