@@ -219,9 +219,7 @@
   <table class="mt-4">
     <thead>
         <tr class="text-gray-800 dark:text-red-800">
-            <th>Código Cliente</th>
-            <th>Código Activo</th>
-            <th>Fecha de Inicio</th>
+            
             <th>Nivel</th>
             <th>Sector</th>
             <th>Componente a Evaluar</th>
@@ -235,16 +233,13 @@
     </thead>
     <tbody>
         {#each $activosAnteriores as activo}
-        <tr class="{activo.ValidoParaEvaluacion ? 'bg-green-800' : 'bg-red-800'}">
-            <td>{activo.codigoCliente}</td>
-            <td>{activo.codigoActivo}</td>
-            <td>{activo.fecha_creacion}</td>           
+        <tr class="{activo.ValidoParaEvaluacion ? 'bg-green-800' : 'bg-red-800'}">       
             <td>{activo.nivel}</td>
             <td>{activo.sector}</td>
             <td>{activo.componente}</td>
             <td>{activo.nombreComponente}</td>
-            <td>{activo.norma}</td>
-            <td>{activo.estadoNorma}</td>
+            <td class="{activo.estadoNorma ? 'bg-green-800' : 'bg-red-700'}">{activo.norma}</td>
+            <td class="{activo.estadoNorma ? 'bg-green-800' : 'bg-red-700'}">{activo.estadoNorma}</td>
             <td>{activo.comentarios}</td>
 
             <td>
